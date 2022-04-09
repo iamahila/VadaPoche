@@ -9,45 +9,47 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.luv2eat.dao.RestDAO;
 import com.luv2eat.dao.UserDAO;
+import com.luv2eat.entity.Restaurant;
 import com.luv2eat.entity.User;
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class RestDAOImpl implements RestDAO{
 
 	@Autowired
 	private EntityManager entityManager;
 	
 	@Override
-	public List<User> getUsers() {
+	public List<Restaurant> getRestaurants() {
 		
 		Session session = entityManager.unwrap(Session.class);
-		Query<User> query = session.createQuery("from User", User.class);
+		Query<Restaurant> query = session.createQuery("from Restaurant", Restaurant.class);
 		
-		List<User> users = query.getResultList();
+		List<Restaurant> restaurants = query.getResultList();
 		
-		return users;
+		return restaurants;
 	}
 
 	@Override
-	public User getUser(int id) {
+	public Restaurant getRestaurant(int id) {
 		
 		Session session = entityManager.unwrap(Session.class);
-		User user = session.get(User.class, id);
+		Restaurant restaurant = session.get(Restaurant.class, id);
 		
-		return user;
+		return restaurant;
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public void saveRestaurant(Restaurant restaurant) {
 		Session session = entityManager.unwrap(Session.class);
-		session.saveOrUpdate(user);		
+		session.saveOrUpdate(restaurant);		
 	}
 	
 	@Override
-	public void deleteUser(User user) {
+	public void deleteRestaurant(Restaurant restaurant) {
 		Session session = entityManager.unwrap(Session.class);
-		session.delete(user);
+		session.delete(restaurant);
 	}
 
 	
